@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Position {
+  GOL
+  ZAG
+  MEI
+  ATA
+}
+
+enum TeamName {
+  TIME_A
+  TIME_B
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  position  Position
+  createdAt DateTime @default(now())
+
+  stats PlayerStat[]
+}
+
+model Team {
+  id            Int      @id @default(autoincrement())
+  name          TeamName
+  playerIds     Int[]
+  goalsScored   Int      @default(0)
+  goalsConceded Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  stats PlayerStat[]
+}
+
+model PlayerStat {
+  id     Int  @id @default(autoincrement())
+  teamId Int
+  team   Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  playerId Int
+  player   Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  goals       Int @default(0)
+  assists     Int @default(0)
+  yellowCards Int @default(0)
+  redCards    Int @default(0)
+}
