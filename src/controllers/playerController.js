@@ -39,7 +39,7 @@ async function deletar(req, res) {
         where: {id:Number(req.params.id)}
     })
 
-    return res.status(204).send("Jogador excluido")
+    return res.status(204).send()
 }
 
 module.exports = {
