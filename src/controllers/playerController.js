@@ -8,7 +8,7 @@ async function buscar(req, res) {
         orderBy: {name: "asc"}
     })
 
-    return res.json(players)
+    return res.status(200).json(players)
 }
 
 async function criar(req, res) {

@@ -2,7 +2,8 @@ const express = require("express")
 const cors = require("cors")
 
 const playerRoutes = require("./src/routes/playerRoutes")
-const teamRouteS = require("./src/routes/teamRoutes")
+const teamRoutes = require("./src/routes/teamRoutes")
+const playerStatRoutes = require("./src/routes/playerStatRoutes")
 
 const app = express()
 
@@ -14,7 +15,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/player", playerRoutes)
-app.use("/team", teamRouteS)
+app.use("/team", teamRoutes)
+app.use("/playerStat", playerStatRoutes)
 
 const PORT = process.env.PORT || 3000
 
